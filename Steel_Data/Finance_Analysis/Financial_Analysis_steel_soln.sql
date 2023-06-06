@@ -1,0 +1,58 @@
+-- Finance Analysis --
+-----------------------------------------------------------------------------------------------------------------------------------------------
+-- 1. What are the names of all the customers who live in New York?
+-- SELECT CONCAT(FirstName, ' ',LastName) AS customers_name FROM customers
+-- WHERE City = 'New York';
+-------------------------------------------------------------------------------------------------------------------------------------------------
+-- 2. What is the total number of accounts in the Accounts table?
+-- SELECT COUNT(DISTINCT AccountID) AS total_number_of_account FROM accounts;
+-----------------------------------------------------------------------------------------------------------------------------------------------
+-- 3. What is the total balance of all checking accounts?
+-- SELECT SUM(Balance) AS total_balance FROM accounts
+-- WHERE AccountType = 'Checking';
+---------------------------------------------------------------------------------------------------------------------------------------------
+-- 4. What is the total balance of all accounts associated with customers who live in Los Angeles?
+-- SELECT SUM(Balance) AS total_balance FROM accounts a
+-- JOIN customers c ON a.CustomerID = c.CustomerID
+-- WHERE c.city = 'Los Angeles';
+---------------------------------------------------------------------------------------------------------------------------------------------
+-- 5. Which branch has the highest average account balance?
+-- SELECT BranchName, AVG(Balance) AS Avg_Balance FROM branches b
+-- JOIN accounts a ON b.BranchID = a.BranchID
+-- GROUP BY BranchName
+-- ORDER BY Avg_Balance DESC LIMIT 1;
+---------------------------------------------------------------------------------------------------------------------------------------------
+-- 6. Which customer has the highest current balance in their accounts?
+-- SELECT CONCAT(FirstName,' ',LastName) AS customer_name, Balance FROM customers c
+-- JOIN accounts a ON c.CustomerID = a.CustomerID
+-- GROUP BY customer_name
+-- ORDER BY Balance DESC LIMIT 1;
+---------------------------------------------------------------------------------------------------------------------------------------------
+-- 7. Which customer has made the most transactions in the Transactions table?
+-- SELECT CONCAT(FirstName,' ',LastName) AS customer_name, COUNT(TransactionID) AS no_of_transaction FROM customers c
+-- JOIN accounts a ON c.CustomerID = a.CustomerID 
+-- JOIN transactions t ON a.AccountID = t.AccountID
+-- GROUP BY c.CustomerID
+-- ORDER BY no_of_transaction DESC LIMIT 1;
+----------------------------------------------------------------------------------------------------------------------------------------------
+-- 8.Which branch has the highest total balance across all of its accounts?
+-- SELECT BranchName, SUM(Balance) AS total_balance FROM branches b
+-- JOIN accounts a ON b.BranchID = a.BranchID
+-- GROUP BY b.BranchName
+-- ORDER BY total_balance DESC LIMIT 1;
+---------------------------------------------------------------------------------------------------------------------------------------------
+-- 9. Which customer has the highest total balance across all of their accounts, including savings and checking accounts?
+-- SELECT CONCAT(FirstName,' ',LastName) AS customer_name, SUM(Balance) AS total_balance FROM customers c
+-- JOIN accounts a ON c.CustomerID = a.CustomerID
+-- GROUP BY customer_name
+-- ORDER BY total_balance DESC LIMIT 1;
+---------------------------------------------------------------------------------------------------------------------------------------------
+-- 10. Which branch has the highest number of transactions in the Transactions table?
+-- SELECT BranchName, COUNT(TransactionID) AS no_of_transaction FROM branches b
+-- JOIN accounts a ON b.BranchID = a.BranchID
+-- JOIN transactions t ON a.AccountID = t.AccountID
+-- GROUP BY BranchName
+-- ORDER BY no_of_transaction DESC;
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+-- END --
